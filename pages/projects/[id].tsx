@@ -1,23 +1,22 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 
-import Date from '../../components/date'
 import Layout from '../../components/layout'
 import { getAllIds, getData } from '../../lib/data'
 import utilStyles from '../../styles/utils.module.css'
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData = await getData(params.id as string, 'posts')
+  const projectData = await getData(params.id as string, 'projects')
 
   return {
     props: {
-      postData
+      projectData
     }
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllIds('posts')
+  const paths = getAllIds('projects')
 
   return {
     paths,
@@ -25,26 +24,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export default function Post({
-  postData
+export default function Project({
+  projectData
 }: {
-  postData: {
+  projectData: {
     title: string
-    date: string
     contentHtml: string
   }
 }) {
   return (
     <Layout>
       <Head>
-        <title>{postData.title}</title>
+        <title>{projectData.title}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
-          <Date dateString={postData.date} />
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <h1 className={utilStyles.headingXl}>{projectData.title}</h1>
+        <div dangerouslySetInnerHTML={{ __html: projectData.contentHtml }} />
       </article>
     </Layout>
   )

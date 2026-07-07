@@ -6,22 +6,29 @@ import Date from '../components/date'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '/styles/utils.module.css'
 
-import { getSortedPostsData } from '../lib/posts'
+import { getSortedData } from '../lib/data'
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = getSortedPostsData()
+  const allPostsData = getSortedData('posts')
+  const allProjectsData = getSortedData('projects')
   return {
     props: {
-      allPostsData
+      allPostsData,
+      allProjectsData
     }
   }
 }
 
 export default function Home({
-  allPostsData
+  allPostsData,
+  allProjectsData,
 }: {
   allPostsData: {
     date: string
+    title: string
+    id: string
+  }[]
+  allProjectsData: {
     title: string
     id: string
   }[]
@@ -53,6 +60,19 @@ export default function Home({
               <small className={utilStyles.lightText}>
                 <Date dateString={date}/>
               </small>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+        <h2 className={utilStyles.headingLg}>Projects</h2>
+        <ul className={utilStyles.list}>
+          {allProjectsData.map(({ id, title }) => (
+            <li className={utilStyles.listItem} key={id}>
+              <Link href={`/projects/${id}`}>
+                {title}
+              </Link>
+              <br />
             </li>
           ))}
         </ul>
