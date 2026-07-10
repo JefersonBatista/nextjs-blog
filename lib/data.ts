@@ -10,7 +10,7 @@ const getDirectory = (name: directoryName) => path.join(process.cwd(), name)
 export function getSortedData(directory: directoryName) {
   // Get file names under /posts or /projects
   const fileNames = fs.readdirSync(getDirectory(directory))
-  const allPostsData = fileNames.map(fileName => {
+  const allFilesData = fileNames.map(fileName => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, '')
 
@@ -18,7 +18,7 @@ export function getSortedData(directory: directoryName) {
     const fullPath = path.join(getDirectory(directory), fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf-8')
 
-    // Use gray-matter to parse the post metadata section
+    // Use gray-matter to parse file metadata section
     const matterResult = matter(fileContents)
 
     return {
@@ -27,8 +27,8 @@ export function getSortedData(directory: directoryName) {
     }
   })
 
-  // Sort posts by date
-  return allPostsData.sort(({ date: a }, { date: b }) => {
+  // Sort files by date
+  return allFilesData.sort(({ date: a }, { date: b }) => {
     if (a < b) {
       return 1
     } else if (a > b) {
@@ -55,7 +55,7 @@ export async function getData(id: string, directory: directoryName) {
   const fullPath = path.join(getDirectory(directory), `${id}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf-8')
 
-  // Use gray-matter to parse the post metadata section
+  // Use gray-matter to parse file metadata section
   const matterResult = matter(fileContents)
 
   // Use remark to convert markdown into HTML string

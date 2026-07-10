@@ -1,1 +1,1 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+This is a simple personal portfolio based on a starter template for [Learn Next.js](https://nextjs.org/learn).

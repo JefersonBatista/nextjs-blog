@@ -1,5 +1,6 @@
 ---
 title: 'Memory Game'
+date: '2021-08-12'
 ---
 
 **URL**: [https://react-memory-game-two.vercel.app](https://react-memory-game-two.vercel.app) \
