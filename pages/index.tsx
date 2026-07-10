@@ -19,6 +19,25 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
+const Section = ({ title, path, data }: { title: string, path: string, data: any[] }) => (
+  <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+        <h2 className={utilStyles.headingLg}>{title}</h2>
+        <ul className={utilStyles.list}>
+          {data.map(({ id, date, title }) => (
+            <li className={utilStyles.listItem} key={id}>
+              <Link href={`${path}/${id}`}>
+                {title}
+              </Link>
+              <br />
+              <small className={utilStyles.lightText}>
+                <Date dateString={date}/>
+              </small>
+            </li>
+          ))}
+        </ul>
+      </section>
+)
+
 export default function Home({
   allPostsData,
   allProjectsData,
@@ -48,35 +67,8 @@ export default function Home({
           <a href="https://nextjs.org/learn">the Next.js tutorial</a>.)
         </p>
       </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href={`/posts/${id}`}>
-                {title}
-              </Link>
-              <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={date}/>
-              </small>
-            </li>
-          ))}
-        </ul>
-      </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Projects</h2>
-        <ul className={utilStyles.list}>
-          {allProjectsData.map(({ id, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href={`/projects/${id}`}>
-                {title}
-              </Link>
-              <br />
-            </li>
-          ))}
-        </ul>
-      </section>
+      <Section title='Blog' path='/posts' data={allPostsData} />
+      <Section title='Projects' path='/projects' data={allProjectsData} />
     </Layout>
   )
 }
