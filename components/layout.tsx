@@ -1,7 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useContext } from 'react'
 
+import { LanguageContext } from './language-context'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 
@@ -15,6 +17,8 @@ export default function Layout({
     children: React.ReactNode
     home?: boolean
   }) {
+  const { language, setLanguage } = useContext(LanguageContext)
+
   return (
     <div className={styles.container}>
       <Head>
@@ -33,6 +37,17 @@ export default function Layout({
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header className={styles.header}>
+        <div className={styles.languageSelector}>
+          <select
+            id="language-select"
+            className={styles.languageSelect}
+            value={language}
+            onChange={(event) => setLanguage(event.target.value)}
+          >
+            <option value="en-US">en-US</option>
+            <option value="pt-BR">pt-BR</option>
+          </select>
+        </div>
         {home ? (
           <>
             <Image

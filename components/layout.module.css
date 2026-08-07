@@ -5,9 +5,24 @@
 }
 
 .header {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.languageSelector {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.languageSelect {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  background-color: #fff;
 }
 
 .backToHome {
