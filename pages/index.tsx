@@ -3,12 +3,12 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useContext } from 'react'
 
-import Date from '../components/date'
-import Layout, { siteTitle } from '../components/layout'
-import { LanguageContext } from '../components/language-context'
-import utilStyles from '/styles/utils.module.css'
+import Date from '@/components/date'
+import Layout, { siteTitle } from '@/components/layout'
+import { LanguageContext } from '@/components/language-context'
+import utilStyles from '@/styles/utils.module.css'
 
-import { getSortedData } from '../lib/data'
+import { getSortedData } from '@/lib/data'
 
 export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedData('posts')

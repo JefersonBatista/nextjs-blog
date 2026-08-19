@@ -5,7 +5,7 @@ import { useContext } from 'react'
 
 import { LanguageContext } from './language-context'
 import styles from './layout.module.css'
-import utilStyles from '../styles/utils.module.css'
+import utilStyles from '@/styles/utils.module.css'
 
 const name = 'Jeferson Batista'
 export const siteTitle = "Jeferson Batista's Portfolio"

@@ -1,10 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 
-import Date from '../../components/date'
-import Layout from '../../components/layout'
-import { getAllIds, getData } from '../../lib/data'
-import utilStyles from '../../styles/utils.module.css'
+import Date from '@/components/date'
+import Layout from '@/components/layout'
+import { getAllIds, getData } from '@/lib/data'
+import utilStyles from '@/styles/utils.module.css'
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const postData = await getData(params.id as string, 'posts')
