@@ -4,10 +4,9 @@ import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
 
-type directoryName = 'posts' | 'projects'
-const getDirectory = (name: directoryName) => path.join(process.cwd(), name)
+const getDirectory = (name: DirectoryName) => path.join(process.cwd(), name)
 
-export function getSortedData(directory: directoryName) {
+export function getSortedData(directory: DirectoryName) {
   // Get file names under /posts or /projects
   const fileNames = fs.readdirSync(getDirectory(directory))
   const allFilesData = fileNames.map(fileName => {
@@ -39,7 +38,7 @@ export function getSortedData(directory: directoryName) {
   })
 }
 
-export function getAllIds(directory: directoryName) {
+export function getAllIds(directory: DirectoryName) {
   const fileNames = fs.readdirSync(getDirectory(directory))
 
   return fileNames.map(fileName => (
@@ -51,7 +50,7 @@ export function getAllIds(directory: directoryName) {
   ))
 }
 
-export async function getData(id: string, directory: directoryName) {
+export async function getData(id: string, directory: DirectoryName) {
   const fullPath = path.join(getDirectory(directory), `${id}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf-8')
 

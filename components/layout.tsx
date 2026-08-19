@@ -42,7 +42,7 @@ export default function Layout({
             id="language-select"
             className={styles.languageSelect}
             value={language}
-            onChange={(event) => setLanguage(event.target.value)}
+            onChange={(event) => setLanguage(event.target.value as Language)}
           >
             <option value="en-US">en-US</option>
             <option value="pt-BR">pt-BR</option>
