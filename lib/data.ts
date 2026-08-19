@@ -5,7 +5,7 @@ import { remark } from 'remark'
 import html from 'remark-html'
 
 const getDirectory = (name: DirectoryName, language: Language) =>
-  path.join(process.cwd(), name, language)
+  path.join(process.cwd(), language, name)
 
 export function getSortedData(directory: DirectoryName, language: Language) {
   // Get file names under /posts or /projects
@@ -45,7 +45,8 @@ export function getAllIds(directory: DirectoryName, language: Language) {
   return fileNames.map(fileName => (
     {
       params: {
-        id: fileName.replace(/\.md$/, '')
+        id: fileName.replace(/\.md$/, ''),
+        language,
       }
     }
   ))

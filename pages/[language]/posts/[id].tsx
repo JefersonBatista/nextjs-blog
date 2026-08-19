@@ -15,13 +15,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       postData,
-      language,
     }
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const languages = ['pt-BR, en-US'] as const
+  const languages = ['pt-BR', 'en-US'] as const
 
   const paths = languages.flatMap(language =>
     getAllIds('posts', language as Language)

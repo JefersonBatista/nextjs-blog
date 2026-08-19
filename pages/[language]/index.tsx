@@ -86,8 +86,8 @@ export default function Home({
         </p>
         </>)}
       </section>
-      <Section title='Blog' path='/posts' data={allPostsData} />
-      <Section title='Projects' path='/projects' data={allProjectsData} />
+      <Section title='Blog' path={`${language}/posts`} data={allPostsData} />
+      <Section title='Projects' path={`${language}/projects`} data={allProjectsData} />
     </Layout>
   )
 }
