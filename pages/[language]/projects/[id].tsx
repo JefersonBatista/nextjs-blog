@@ -4,9 +4,12 @@ import Head from 'next/head'
 import Layout from '@/components/layout'
 import { getAllIds, getData } from '@/lib/data'
 import utilStyles from '@/styles/utils.module.css'
+import { useContext } from 'react'
+import { LanguageContext } from '@/components/language-context'
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const projectData = await getData(params.id as string, 'projects')
+  const { language } = useContext(LanguageContext)
+  const projectData = await getData(params.id as string, 'projects', language)
 
   return {
     props: {
@@ -16,7 +19,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllIds('projects')
+    const { language } = useContext(LanguageContext)
+  const paths = getAllIds('projects', language)
 
   return {
     paths,

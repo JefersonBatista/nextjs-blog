@@ -6,6 +6,7 @@ import { useContext } from 'react'
 import { LanguageContext } from './language-context'
 import styles from './layout.module.css'
 import utilStyles from '@/styles/utils.module.css'
+import { useRouter } from 'next/router'
 
 const name = 'Jeferson Batista'
 export const siteTitle = "Jeferson Batista's Portfolio"
@@ -17,6 +18,7 @@ export default function Layout({
     children: React.ReactNode
     home?: boolean
   }) {
+  const router = useRouter()
   const { language, setLanguage } = useContext(LanguageContext)
 
   return (
@@ -42,7 +44,11 @@ export default function Layout({
             id="language-select"
             className={styles.languageSelect}
             value={language}
-            onChange={(event) => setLanguage(event.target.value as Language)}
+            onChange={(event) => {
+              const selectedLanguage = event.target.value as Language
+              setLanguage(selectedLanguage)
+              router.push(`/${selectedLanguage}`)
+            }}
           >
             <option value="en-US">en-US</option>
             <option value="pt-BR">pt-BR</option>

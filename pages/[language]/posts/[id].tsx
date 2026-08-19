@@ -7,17 +7,25 @@ import { getAllIds, getData } from '@/lib/data'
 import utilStyles from '@/styles/utils.module.css'
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData = await getData(params.id as string, 'posts')
+  const language = params.language as Language ?? 'en-US'
+  const id = params.id as string
+
+  const postData = await getData(id, 'posts', language)
 
   return {
     props: {
-      postData
+      postData,
+      language,
     }
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllIds('posts')
+  const languages = ['pt-BR, en-US'] as const
+
+  const paths = languages.flatMap(language =>
+    getAllIds('posts', language as Language)
+  )
 
   return {
     paths,

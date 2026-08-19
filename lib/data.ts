@@ -4,17 +4,18 @@ import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
 
-const getDirectory = (name: DirectoryName) => path.join(process.cwd(), name)
+const getDirectory = (name: DirectoryName, language: Language) =>
+  path.join(process.cwd(), name, language)
 
-export function getSortedData(directory: DirectoryName) {
+export function getSortedData(directory: DirectoryName, language: Language) {
   // Get file names under /posts or /projects
-  const fileNames = fs.readdirSync(getDirectory(directory))
+  const fileNames = fs.readdirSync(getDirectory(directory, language))
   const allFilesData = fileNames.map(fileName => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, '')
 
     // Read markdown file as string
-    const fullPath = path.join(getDirectory(directory), fileName)
+    const fullPath = path.join(getDirectory(directory, language), fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf-8')
 
     // Use gray-matter to parse file metadata section
@@ -38,8 +39,8 @@ export function getSortedData(directory: DirectoryName) {
   })
 }
 
-export function getAllIds(directory: DirectoryName) {
-  const fileNames = fs.readdirSync(getDirectory(directory))
+export function getAllIds(directory: DirectoryName, language: Language) {
+  const fileNames = fs.readdirSync(getDirectory(directory, language))
 
   return fileNames.map(fileName => (
     {
@@ -50,8 +51,8 @@ export function getAllIds(directory: DirectoryName) {
   ))
 }
 
-export async function getData(id: string, directory: DirectoryName) {
-  const fullPath = path.join(getDirectory(directory), `${id}.md`)
+export async function getData(id: string, directory: DirectoryName, language: Language) {
+  const fullPath = path.join(getDirectory(directory, language), `${id}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf-8')
 
   // Use gray-matter to parse file metadata section
