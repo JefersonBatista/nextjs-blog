@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useContext } from 'react'
@@ -19,6 +19,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       allPostsData,
       allProjectsData
     }
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const languages = ['pt-BR', 'en-US'] as const
+
+  const paths = languages.map(language => `/${language}`)
+
+  return {
+    paths,
+    fallback: false
   }
 }
 
