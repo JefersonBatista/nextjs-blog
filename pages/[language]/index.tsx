@@ -1,11 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useContext } from 'react'
 
 import Date from '@/components/date'
 import Layout, { siteTitle } from '@/components/layout'
-import { LanguageContext } from '@/components/language-context'
 import utilStyles from '@/styles/utils.module.css'
 
 import { getSortedData } from '@/lib/data'
@@ -17,7 +15,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       allPostsData,
-      allProjectsData
+      allProjectsData,
+      language
     }
   }
 }
@@ -25,7 +24,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const languages = ['pt-BR', 'en-US'] as const
 
-  const paths = languages.map(language => `/${language}`)
+  const paths = languages.map(language => ({ params: { language } }))
 
   return {
     paths,
@@ -35,26 +34,27 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 const Section = ({ title, path, data }: { title: string, path: string, data: any[] }) => (
   <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>{title}</h2>
-        <ul className={utilStyles.list}>
-          {data.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href={`${path}/${id}`}>
-                {title}
-              </Link>
-              <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={date}/>
-              </small>
-            </li>
-          ))}
-        </ul>
-      </section>
+    <h2 className={utilStyles.headingLg}>{title}</h2>
+    <ul className={utilStyles.list}>
+      {data.map(({ id, date, title }) => (
+        <li className={utilStyles.listItem} key={id}>
+          <Link href={`${path}/${id}`}>
+            {title}
+          </Link>
+          <br />
+          <small className={utilStyles.lightText}>
+            <Date dateString={date}/>
+          </small>
+        </li>
+      ))}
+    </ul>
+  </section>
 )
 
 export default function Home({
   allPostsData,
   allProjectsData,
+  language
 }: {
   allPostsData: {
     date: string
@@ -64,12 +64,11 @@ export default function Home({
   allProjectsData: {
     title: string
     id: string
-  }[]
+  }[],
+  language: Language
 }) {
-  const { language } = useContext(LanguageContext)
-
   return (
-    <Layout home>
+    <Layout home language={language}>
       <Head>
         <title>{siteTitle}</title>
       </Head>

@@ -13,7 +13,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      projectData
+      projectData,
+      language
     }
   }
 }
@@ -32,15 +33,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export default function Project({
-  projectData
+  projectData,
+  language
 }: {
   projectData: {
     title: string
     contentHtml: string
-  }
+  },
+  language: Language
 }) {
   return (
-    <Layout>
+    <Layout language={language}>
       <Head>
         <title>{projectData.title}</title>
       </Head>

@@ -1,9 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useContext } from 'react'
 
-import { LanguageContext } from './language-context'
 import styles from './layout.module.css'
 import utilStyles from '@/styles/utils.module.css'
 import { useRouter } from 'next/router'
@@ -13,13 +11,14 @@ export const siteTitle = "Jeferson Batista's Portfolio"
 
 export default function Layout({
   children,
-  home
+  home,
+  language
   }: {
     children: React.ReactNode
-    home?: boolean
+    home?: boolean,
+    language: Language
   }) {
   const router = useRouter()
-  const { language, setLanguage } = useContext(LanguageContext)
 
   return (
     <div className={styles.container}>
@@ -46,7 +45,6 @@ export default function Layout({
             value={language}
             onChange={(event) => {
               const selectedLanguage = event.target.value as Language
-              setLanguage(selectedLanguage)
               router.push(`/${selectedLanguage}`)
             }}
           >

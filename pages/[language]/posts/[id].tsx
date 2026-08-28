@@ -15,6 +15,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       postData,
+      language
     }
   }
 }
@@ -33,16 +34,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export default function Post({
-  postData
+  postData,
+  language
 }: {
   postData: {
     title: string
     date: string
     contentHtml: string
-  }
+  },
+  language: Language
 }) {
   return (
-    <Layout>
+    <Layout language={language}>
       <Head>
         <title>{postData.title}</title>
       </Head>
