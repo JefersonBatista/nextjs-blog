@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Layout from '@/components/layout'
 import { getAllIds, getData } from '@/lib/data'
 import utilStyles from '@/styles/utils.module.css'
+import { Language, languages } from '@/types'
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const language = params.language as Language ?? 'en-US'
@@ -20,8 +21,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const languages = ['pt-BR', 'en-US'] as const
-
   const paths = languages.flatMap(language =>
     getAllIds('projects', language as Language)
   )

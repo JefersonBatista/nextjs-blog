@@ -5,8 +5,8 @@ import Link from 'next/link'
 import Date from '@/components/date'
 import Layout, { siteTitle } from '@/components/layout'
 import utilStyles from '@/styles/utils.module.css'
-
 import { getSortedData } from '@/lib/data'
+import { Language, languages } from '@/types'
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const language = params.language as Language ?? 'en-US'
@@ -22,8 +22,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const languages = ['pt-BR', 'en-US'] as const
-
   const paths = languages.map(language => ({ params: { language } }))
 
   return {

@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import styles from './layout.module.css'
 import utilStyles from '@/styles/utils.module.css'
-import { useRouter } from 'next/router'
+import { Language } from '@/types'
 
 const name = 'Jeferson Batista'
 export const siteTitle = "Jeferson Batista's Portfolio"
@@ -19,6 +20,7 @@ export default function Layout({
     language: Language
   }) {
   const router = useRouter()
+  const homeRoute = `/${language}`
 
   return (
     <div className={styles.container}>
@@ -45,7 +47,9 @@ export default function Layout({
             value={language}
             onChange={(event) => {
               const selectedLanguage = event.target.value as Language
-              router.push(`/${selectedLanguage}`)
+              // currentPath excludes the language prefix
+              const currentPath = router.asPath.replace(/^\/[^/]+/, '')
+              router.push(`/${selectedLanguage}${currentPath}`)
             }}
           >
             <option value="en-US">en-US</option>
@@ -66,7 +70,7 @@ export default function Layout({
           </>
         ) : (
           <>
-            <Link href="/">
+            <Link href={homeRoute}>
               <Image
                 priority
                 src="/images/profile.jpg"
@@ -77,7 +81,7 @@ export default function Layout({
               />
             </Link>
             <h2 className={utilStyles.headingLg}>
-              <Link className={utilStyles.colorInhreit} href="/">
+              <Link className={utilStyles.colorInhreit} href={homeRoute}>
                 {name}
               </Link>
             </h2>
@@ -87,7 +91,7 @@ export default function Layout({
       <main>{children}</main>
       {!home && (
         <div className={styles.backToHome}>
-          <Link href="/">
+          <Link href={homeRoute}>
             ← Back to home
           </Link>
         </div>

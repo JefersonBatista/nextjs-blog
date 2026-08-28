@@ -4,6 +4,8 @@ import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
 
+import { DirectoryName, Language } from '@/types'
+
 const getDirectory = (name: DirectoryName, language: Language) =>
   path.join(process.cwd(), language, name)
 
