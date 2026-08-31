@@ -1,6 +1,14 @@
 import { parseISO, format } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 
-export default function Date({ dateString }: { dateString: string }) {
+import { Language } from '@/types'
+
+export default function Date({ dateString, language }: { dateString: string, language: Language }) {
   const date = parseISO(dateString)
-  return <time dateTime={dateString}>{format(date, 'LLLL d, yyyy')}</time>
+  switch (language) {
+    case 'pt-BR':
+      return <time dateTime={dateString}>{format(date, 'd LLLL, yyyy', { locale: ptBR })}</time>
+    default:
+      return <time dateTime={dateString}>{format(date, 'LLLL d, yyyy')}</time>
+  }
 }

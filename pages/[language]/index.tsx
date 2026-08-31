@@ -30,7 +30,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-const Section = ({ title, path, data }: { title: string, path: string, data: any[] }) => (
+const Section = ({ title, path, data, language }: { title: string, path: string, data: any[], language: Language }) => (
   <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
     <h2 className={utilStyles.headingLg}>{title}</h2>
     <ul className={utilStyles.list}>
@@ -41,7 +41,7 @@ const Section = ({ title, path, data }: { title: string, path: string, data: any
           </Link>
           <br />
           <small className={utilStyles.lightText}>
-            <Date dateString={date}/>
+            <Date dateString={date} language={language} />
           </small>
         </li>
       ))}
@@ -94,8 +94,8 @@ export default function Home({
         </p>
         </>)}
       </section>
-      <Section title='Blog' path={`${language}/posts`} data={allPostsData} />
-      <Section title='Projects' path={`${language}/projects`} data={allProjectsData} />
+      <Section title='Blog' path={`${language}/posts`} data={allPostsData} language={language} />
+      <Section title='Projects' path={`${language}/projects`} data={allProjectsData} language={language} />
     </Layout>
   )
 }
