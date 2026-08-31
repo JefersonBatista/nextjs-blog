@@ -3,17 +3,17 @@ title: 'Quando usar Geração Estática v.s. Renderização do Lado do Servidor'
 date: '2021-08-09'
 ---
 
-We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.
+Recomendamos usar **Geração Estática** (com e sem dados) sempre que possível, porque sua página pode ser compilada uma vez e servida por CDN, o que é muito mais rápido do que ter um servidor renderizando a página em cada requisição.
 
-You can use Static Generation for many types of pages, including:
+Você pode usar Geração Estática para muitos tipos de página, incluindo:
 
-- Marketing pages
-- Blog posts
-- E-commerce product listings
-- Help and documentation
+- Páginas de marketing
+- Postagens em blogs
+- Listagens de produto em e-commerces
+- Ajuda e documentação
 
-You should ask yourself: "Can I pre-render this page **ahead** of a user's request?" If the answer is yes, then you should choose Static Generation.
+Você deve se perguntar: "Posso pré-renderizar esta página **antes** de uma requisição?" Se a resposta for sim, então você deve escolhar Geração Estática.
 
-On the other hand, Static Generation is **not** a good idea if you cannot pre-render a page ahead of a user's request. Maybe your page shows frequently updated data, and the page content changes on every request.
+Por outro lado, Geração Estática não é uma boa ideia se você não pode pré-renderizar uma página antes de uma requisição. Talvez sua página mostre dados atualizados com frequência, e o conteúdo da página muda em cada requisição.
 
-In that case, you can use **Server-Side Rendering**. It will be slower, but the pre-rendered page will always be up-to-date. Or you can skip pre-rendering and use client-side JavaScript to populate data.
+Nesse caso, você pode usar **Renderização do Lado do Servidor**. Será mais lento, mas a página pré-renderizda estará sempre atualizada. Ou você pode abandonar a pré-renderização e usar JavaScript do lado do cliente para popular os dados.

@@ -21,6 +21,7 @@ export default function Layout({
   }) {
   const router = useRouter()
   const homeRoute = `/${language}`
+  const goHomeText = language === 'pt-BR' ? 'Voltar para a página inicial' : 'Back to home'
 
   return (
     <div className={styles.container}>
@@ -92,7 +93,7 @@ export default function Layout({
       {!home && (
         <div className={styles.backToHome}>
           <Link href={homeRoute}>
-            ← Back to home
+            ← {goHomeText}
           </Link>
         </div>
       )}
