@@ -22,6 +22,7 @@ export default function Layout({
   const router = useRouter()
   const homeRoute = `/${language}`
   const goHomeText = language === 'pt-BR' ? 'Voltar para a página inicial' : 'Back to home'
+  const flagIcon = language === 'pt-BR' ? '/icons/brazil-flag.svg' : '/icons/usa-flag.svg'
 
   return (
     <div className={styles.container}>
@@ -42,20 +43,19 @@ export default function Layout({
       </Head>
       <header className={styles.header}>
         <div className={styles.languageSelector}>
-          <select
-            id="language-select"
-            className={styles.languageSelect}
-            value={language}
-            onChange={(event) => {
-              const selectedLanguage = event.target.value as Language
+          <img
+            src={flagIcon}
+            alt={`${language === 'pt-BR' ? 'Brazil' : 'USA'} Flag`}
+            width="25"
+            height="25"
+            onClick={() => {
+              const newLanguage = language === 'pt-BR' ? 'en-US' : 'pt-BR'
               // currentPath excludes the language prefix
               const currentPath = router.asPath.replace(/^\/[^/]+/, '')
-              router.push(`/${selectedLanguage}${currentPath}`)
+              router.push(`/${newLanguage}${currentPath}`)
             }}
-          >
-            <option value="en-US">en-US</option>
-            <option value="pt-BR">pt-BR</option>
-          </select>
+            title={language === 'pt-BR' ? 'Switch to US English' : 'Mudar para o português brasileiro'}
+          />
         </div>
         {home ? (
           <>
