@@ -8,7 +8,8 @@ Definimos uma mensagem como sendo qualquer coisa que possa ser representada em u
 Dessa forma, utilizamos o conceito de interface de Go como um contrato.
 
 ```go
-type Message interface { // public interface with public methods
+// public interface with public methods
+type Message interface {
 	Bytes() []byte
 	String() string
 }
@@ -17,7 +18,8 @@ type Message interface { // public interface with public methods
 E definimos uma sequência de mensagens como sendo algo que responde com uma mensagem sempre que solicitado.
 
 ```go
-type Sequence interface { // public interface with public methods
+// public interface with public methods
+type Sequence interface {
 	Next() Message
 }
 ```
@@ -26,7 +28,7 @@ Pensando que as mensagens geradas possam ser filtradas segundo algum critério, 
 definimos tipos para as funções que realizam essas ações.
 
 ```go
-// private types
+// private function types
 type condition func(m Message) bool
 type transformation func(m Message) Message
 ```
@@ -34,7 +36,8 @@ type transformation func(m Message) Message
 Implementamos um tipo estrutura, que contenha uma sequência e uma condição, então satisfazemos o contrato de uma sequência para esse novo tipo criado.
 
 ```go
-type filter struct { // private struct
+// private struct
+type filter struct {
 	Sequence
 	condition
 }
@@ -51,7 +54,8 @@ func (filter filter) Next() (next Message) {
 Mas a estrutura privada que criamos não vai servir, a não ser que criemos uma função pública, recebendo uma sequência e um critério de filtragem, que retorna a sequência com as mensagens filtradas.
 
 ```go
-func Filter(sequence Sequence, condition condition) Sequence { // public function
+// public function
+func Filter(sequence Sequence, condition condition) Sequence {
 	return filter{sequence, condition}
 }
 ```
